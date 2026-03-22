@@ -4,7 +4,10 @@ mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://mosquitto:1883
 serial:
-  port: /dev/serial/by-id/YOUR_ZIGBEE_DEVICE_ID
+  # UPDATE THIS AFTER PLUGGING IN ZIGBEE DONGLE
+  # Run: system_profiler SPUSBDataType | grep -i zigbee
+  # Or check: ls /dev/tty.* (look for tty.usbmodem or tty.usbserial)
+  port: /dev/ttyACM0  # May need to change on macOS
 frontend:
   port: 8080
 advanced:
