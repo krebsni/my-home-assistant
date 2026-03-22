@@ -1,0 +1,58 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:stable
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=${TZ}
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: unless-stopped
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    ports:
+      - "8080:8080"
+      - "8484:8484"
+    volumes:
+      - ./zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    # USB device for Zigbee dongle
+    devices:
+      - /dev/tty.usbserial-1230:/dev/ttyACM0
+    environment:
+      - TZ=${TZ}
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:2
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb:/var/lib/influxdb2
+    environment:
+      - TZ=${TZ}
+    restart: unless-stopped
+
+networks: {}
