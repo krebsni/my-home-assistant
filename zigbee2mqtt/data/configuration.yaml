@@ -1,16 +1,32 @@
-homeassistant: true
-permit_join: true
+homeassistant:
+  enabled: true
 mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://mosquitto:1883
 serial:
-  # UPDATE THIS AFTER PLUGGING IN ZIGBEE DONGLE
-  # Run: system_profiler SPUSBDataType | grep -i zigbee
-  # Or check: ls /dev/tty.* (look for tty.usbmodem or tty.usbserial)
-  port: /dev/ttyACM0  # May need to change on macOS
+  port: tcp://host.docker.internal:8888
+  adapter: zstack
 frontend:
+  enabled: true
   port: 8080
 advanced:
-  network_key: GENERATE_LATER
-  pan_id: GENERATE_LATER
+  network_key:
+    - 152
+    - 201
+    - 159
+    - 255
+    - 75
+    - 166
+    - 91
+    - 125
+    - 40
+    - 208
+    - 31
+    - 205
+    - 255
+    - 242
+    - 123
+    - 14
+  pan_id: 16282
   channel: 20
+version: 5
