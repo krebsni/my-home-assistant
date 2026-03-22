@@ -1,13 +1,46 @@
+# Worktrees
 .worktrees/
 worktrees/
-.env.local
+
+# Environment files (may contain secrets)
+.env
+.env.*
+!.env.example
+
+# Home Assistant runtime data
+homeassistant/config/
+# Exception: keep the directory structure but not the contents
+homeassistant/config/*
+!homeassistant/config/.gitkeep
+
+# InfluxDB data
+influxdb/
+
+# Mosquitto data and logs
+mosquitto/data/
+mosquitto/log/
+
+# Zigbee2MQTT data (contains logs, state, network key)
+zigbee2mqtt/data/
+
+# Database files
 *.db
 *.db-shm
 *.db-wal
 *.bolt
 *.sqlite
+
+# Log files
 *.log
 *.log.*
-log/
-migration*.log
 
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
