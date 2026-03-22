@@ -10,7 +10,6 @@ services:
       - /etc/timezone:/etc/timezone:ro
     environment:
       - TZ=${TZ}
-    network_mode: host
     depends_on:
       - mosquitto
     restart: unless-stopped
@@ -36,9 +35,9 @@ services:
     volumes:
       - ./zigbee2mqtt/data:/app/data
       - /run/udev:/run/udev:ro
-    # USB device - uncomment when dongle is plugged in
-    # devices:
-    #   - /dev/ttyACM0:/dev/ttyACM0
+    # USB device for Zigbee dongle
+    devices:
+      - /dev/tty.usbserial-1230:/dev/ttyACM0
     environment:
       - TZ=${TZ}
     depends_on:
