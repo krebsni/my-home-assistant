@@ -1,0 +1,13 @@
+homeassistant: true
+permit_join: true
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mosquitto:1883
+serial:
+  port: /dev/serial/by-id/YOUR_ZIGBEE_DEVICE_ID
+frontend:
+  port: 8080
+advanced:
+  network_key: GENERATE_LATER
+  pan_id: GENERATE_LATER
+  channel: 20
