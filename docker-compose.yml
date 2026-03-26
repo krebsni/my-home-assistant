@@ -34,10 +34,8 @@ services:
       - "8484:8484"
     volumes:
       - ./zigbee2mqtt/data:/app/data
-      - /run/udev:/run/udev:ro
-    # USB device for Zigbee dongle
-    devices:
-      - /dev/tty.usbserial-1230:/dev/ttyACM0
+    extra_hosts:
+      - host.docker.internal:host-gateway
     environment:
       - TZ=${TZ}
     depends_on:
